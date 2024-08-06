@@ -1,35 +1,65 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-function App() {
-  const [count, setCount] = useState(0)
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addToCart,
+  emptyCart,
+  removeFromCart,
+} from "./redux/actions/cartAction";
+import { getProducts } from "./redux/actions/productAction";
+const data = [
+  {
+    id: 1,
+    name: "Iphone",
+  },
+  {
+    id: 2,
+    name: "samSung",
+  },
+  {
+    id: 3,
+    name: "motoG",
+  },
+  {
+    id: 4,
+    name: "redMi",
+  },
+  {
+    id: 5,
+    name: "realMe",
+  },
+];
+const App = () => {
+  const dispatch = useDispatch();
+  const cartData = useSelector((state) => state.cart.cartData);
+  console.log(cartData);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div>
+      <h3>Items in cart : {cartData?.length > 0 ? cartData.length : 0}</h3>
+      {data.map((item) => (
+        <div key={item.id}>
+          <h2>{item.name}</h2>
+          {cartData?.some((val) => val.id === item.id) ? (
+            <button onClick={() => dispatch(removeFromCart(item.id))}>
+              Remove From cart
+            </button>
+          ) : (
+            <button onClick={() => dispatch(addToCart(item))}>
+              Add 2 cart
+            </button>
+          )}
+        </div>
+      ))}
+      <button
+        style={{ padding: 10, margin: 20, fontSize: "larger" }}
+        onClick={() => dispatch(emptyCart())}
+      >
+        Empty cart
+      </button>
 
-export default App
+      <button onClick={() => dispatch(getProducts())}>API CALL</button>
+    </div>
+  );
+};
+
+export default App;
