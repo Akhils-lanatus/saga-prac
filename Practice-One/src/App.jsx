@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
@@ -6,39 +6,21 @@ import {
   removeFromCart,
 } from "./redux/actions/cartAction";
 import { getProducts } from "./redux/actions/productAction";
-const data = [
-  {
-    id: 1,
-    name: "Iphone",
-  },
-  {
-    id: 2,
-    name: "samSung",
-  },
-  {
-    id: 3,
-    name: "motoG",
-  },
-  {
-    id: 4,
-    name: "redMi",
-  },
-  {
-    id: 5,
-    name: "realMe",
-  },
-];
+
 const App = () => {
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart.cartData);
-  console.log(cartData);
+  const productsData = useSelector((state) => state.product.products);
+  useEffect(() => {
+    dispatch(getProducts());
+  }, []);
 
   return (
     <div>
-      <h3>Items in cart : {cartData?.length > 0 ? cartData.length : 0}</h3>
-      {data.map((item) => (
+      <h1>Items in cart : {cartData?.length > 0 ? cartData.length : 0}</h1>
+      {productsData?.map((item) => (
         <div key={item.id}>
-          <h2>{item.name}</h2>
+          <h4>{item.name}</h4>
           {cartData?.some((val) => val.id === item.id) ? (
             <button onClick={() => dispatch(removeFromCart(item.id))}>
               Remove From cart
@@ -57,7 +39,7 @@ const App = () => {
         Empty cart
       </button>
 
-      <button onClick={() => dispatch(getProducts())}>API CALL</button>
+      {/* <button onClick={() => dispatch(getProducts())}>API CALL</button> */}
     </div>
   );
 };

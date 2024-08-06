@@ -1,14 +1,14 @@
-import { GET_PRODUCTS } from "../../constant";
+import { SET_PRODUCTS } from "../../constant";
 const initialState = {
   products: [],
   isLoading: false,
 };
 export const productReducer = (state = initialState, action) => {
   switch (action.type) {
-    case GET_PRODUCTS:
+    case SET_PRODUCTS:
       return {
         ...state,
-        products: action.products,
+        products: action.data,
       };
     default:
       return state;
