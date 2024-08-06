@@ -1,7 +1,7 @@
 import { GET_PRODUCTS } from "../../constant";
 
 export const getProducts = async () => {
-  const response = await fetch("https://akhil1911.github.io/api/products.json");
+  const response = await fetch("http://localhost:3000/products");
   const products = await response.json();
   console.log(products);
 
