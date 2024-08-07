@@ -10,6 +10,7 @@ export const productReducer = (state = initialState, action) => {
         ...state,
         products: action.data,
       };
+
     default:
       return state;
   }

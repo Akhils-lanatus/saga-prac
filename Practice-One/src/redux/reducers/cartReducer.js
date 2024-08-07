@@ -10,13 +10,14 @@ export const cartReducer = (state = initialState, action) => {
         ...state,
         cartData: [...state.cartData, action.data],
       };
-    case REMOVE_FROM_CART:
+    case REMOVE_FROM_CART: {
       const id = action.id;
       const filteredData = state.cartData.filter((item) => item.id !== id);
       return {
         ...state,
         cartData: filteredData,
       };
+    }
     case EMPTY_CART:
       return {
         ...state,
