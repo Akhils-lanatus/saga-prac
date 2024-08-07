@@ -1,0 +1,3 @@
+export const TEMP_CART_CALL = "TEMP_CART_CALL";
+export const TEMP_PRODUCT_CALL = "TEMP_PRODUCT_CALL";
+export const MERGED_SAGA_CALL = "MERGED_SAGA_CALL";
