@@ -9,6 +9,8 @@ function* getProducts() {
 function* searchProduct({ query }) {
   const response = yield fetch(`http://localhost:3000/products?q=${query}`);
   const data = yield response.json();
+  console.log(data);
+
   yield put({ type: SET_PRODUCTS, data });
 }
 
