@@ -1,5 +1,14 @@
-import { put, takeEvery } from "redux-saga/effects";
+import { call, put, takeEvery } from "redux-saga/effects";
 import { GET_PRODUCTS, SEARCH_PRODUCTS, SET_PRODUCTS } from "../../constant";
+
+const getSearchedProducts = async (url) => {
+  let response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`${response.status}...${response.statusText}`);
+  }
+  return await response.json();
+};
+
 function* getProducts() {
   const res = yield fetch("http://localhost:3000/products");
   const data = yield res.json();
