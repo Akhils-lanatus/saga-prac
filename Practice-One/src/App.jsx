@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addToCart,
@@ -11,6 +11,7 @@ const App = () => {
   const dispatch = useDispatch();
   const cartData = useSelector((state) => state.cart.cartData);
   const productsData = useSelector((state) => state.product.products);
+  const [searchQuery, setSearchQuery] = useState("");
   useEffect(() => {
     dispatch(getProducts());
   }, [dispatch]);
@@ -21,8 +22,11 @@ const App = () => {
         type="text"
         placeholder="Search Products..."
         style={{ padding: 20, fontSize: "x-large" }}
-        onChange={(e) => dispatch(searchProducts(e.target.value))}
+        onChange={(e) => setSearchQuery(e.target.value)}
       />
+      <button onClick={() => dispatch(searchProducts(searchQuery))}>
+        Search
+      </button>
       <div style={{ display: "flex", alignItems: "center" }}>
         <h1>Items in cart : {cartData?.length > 0 ? cartData.length : 0}</h1>
         <button
