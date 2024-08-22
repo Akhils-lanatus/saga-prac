@@ -1,7 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { cartReducer, productReducer } from "../redux/reducers";
 import createSagaMiddleware from "redux-saga";
-import productSaga from "./saga/productSaga";
+import rootSaga from "./saga/productSaga";
 const sagaMiddleware = createSagaMiddleware();
 export const store = configureStore({
   reducer: {
@@ -10,4 +10,4 @@ export const store = configureStore({
   },
   middleware: () => [sagaMiddleware],
 });
-sagaMiddleware.run(productSaga);
+sagaMiddleware.run(rootSaga);

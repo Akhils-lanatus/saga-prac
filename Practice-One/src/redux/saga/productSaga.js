@@ -1,4 +1,4 @@
-import { call, put, takeEvery } from "redux-saga/effects";
+import { all, call, put, takeEvery } from "redux-saga/effects";
 import {
   FETCH_PRODUCT_ERROR,
   FETCH_PRODUCT_REQUEST,
@@ -22,6 +22,8 @@ function* getProducts() {
 }
 
 function* searchProduct({ query }) {
+  console.log("Called twice");
+
   try {
     yield put({ type: FETCH_PRODUCT_REQUEST });
     const response = yield call(
@@ -38,4 +40,11 @@ function* productSaga() {
   yield takeEvery(GET_PRODUCTS, getProducts);
   yield takeEvery(SEARCH_PRODUCTS, searchProduct);
 }
-export default productSaga;
+function* productSaga2() {
+  yield takeEvery(SEARCH_PRODUCTS, searchProduct);
+}
+
+function* rootSaga() {
+  yield all([productSaga(), productSaga2()]);
+}
+export default rootSaga;
